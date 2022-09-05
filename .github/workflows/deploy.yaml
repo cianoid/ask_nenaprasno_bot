@@ -19,6 +19,7 @@ jobs:
           host: ${{ secrets.DEV_HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             cd code
             sudo rm -f .env
