@@ -67,8 +67,8 @@ jobs:
             echo TRELLO_ID_MODEL=${{ secrets.TRELLO_ID_MODEL }} >> .env
             echo TRELLO_TOKEN=${{ secrets.TRELLO_TOKEN }} >> .env
             echo TRELLO_BORD_ID=${{ secrets.TRELLO_BORD_ID }} >> .env
-            sudo docker image prune -f
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/ask_nenaprasno_bot:latest
-            sudo docker-compose stop
-            sudo docker-compose rm bot -f
-            sudo docker-compose up -d
+#            docker image prune -f
+            docker pull ${{ secrets.DOCKER_USERNAME }}/ask_nenaprasno_bot:latest
+            docker-compose stop
+            docker-compose rm bot -f
+            docker-compose up -d
