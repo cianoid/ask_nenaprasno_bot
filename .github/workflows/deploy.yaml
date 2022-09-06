@@ -13,13 +13,16 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+
       - name: Login to Docker
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2
         with:
@@ -74,8 +77,8 @@ jobs:
             docker-compose up -d
 
             echo 'cp /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default.backup'
-            docker-compose cp bot:/code/src/infra/robots.txt .
-            docker-compose cp bot:/code/src/infra/nginx.conf .
+            docker-compose cp bot:/code/infra/robots.txt .
+            docker-compose cp bot:/code/infra/nginx.conf .
             sed -i "s+{{ROBOTS_FULL_PATH}}+$(pwd)+g" nginx.conf
             sed -i 's/{{IP}}/${{ secrets.IP }}/g' nginx.conf
             sed -i 's/{{DOMAIN}}/${{ secrets.DOMAIN }}/g' nginx.conf
