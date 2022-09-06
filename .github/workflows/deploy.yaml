@@ -42,7 +42,7 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             cd code
-            sudo rm -f .env
+            rm -f .env
             touch .env
             echo TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }} >> .env
             echo BOT_PORT=${{ secrets.BOT_PORT }} >> .env
@@ -72,12 +72,12 @@ jobs:
             docker-compose rm bot -f
             docker-compose up -d
 
-            cp /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default.backup
+            echo 'cp /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default.backup'
             docker-compose cp bot:/code/src/infra/robots.txt .
             docker-compose cp bot:/code/src/infra/nginx.conf .
             sed -i "s+{{ROBOTS_FULL_PATH}}+$(pwd)+g" nginx.conf
             sed -i 's/{{IP}}/${{ secrets.IP }}/g' nginx.conf
             sed -i 's/{{DOMAIN}}/${{ secrets.DOMAIN }}/g' nginx.conf
             sed -i 's/{{BOT_PORT}}/${{ secrets.BOT_PORT }}/g' nginx.conf
-            cp nginx.conf /etc/nginx/sites-enabled/default
-            service reload nginx
+            echo 'cp nginx.conf /etc/nginx/sites-enabled/default'
+            echo 'service reload nginx'
